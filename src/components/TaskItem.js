@@ -19,17 +19,17 @@ export default class TaskItem extends Component {
         return (
             <TouchableOpacity 
                 style={[styles.taskItem, (taskItem.id == 1) ? {borderTopWidth: 1} : {borderTopWidth: 0}]}
-                onPress={() => {this.props.toggleTask()}}
+                // onPress={() => {this.props.toggleTask()}}
             >
                 <Text numberOfLines={1} style={[styles.taskItemText, (taskItem.done) ? styles.taskItemDone : ""]}>
                     {taskItem.text}
                 </Text>
 
-                <Button 
+                {/* <Button 
                     title="Remove"
                     color="black"
                     onPress={() => { this.props.removeTask() }}
-                />
+                /> */}
             </TouchableOpacity>
         );
     }

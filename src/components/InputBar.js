@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import {connect} from 'react-redux';
+
 import {
     TextInput,
     View,
@@ -9,9 +11,22 @@ import {
 } from 'react-native';
 import { black, white } from 'ansi-colors';
 
-export default class InputBar extends Component {
+class InputBar extends Component {
     constructor() {
         super();
+    }
+
+    state = {
+        text: ''
+    }
+
+    addTask(text) {
+        //reduc store
+        this.props.dispatch({
+            type: 'ADD_TASK',
+            text
+        });
+        this.setState({text: ''});
     }
 
     render() {
@@ -19,13 +34,13 @@ export default class InputBar extends Component {
             <View style={{padding:20, flexDirection:"row"}}>
                 <TextInput 
                     style={styles.input}
-                    onChangeText={(task) => {this.props.textChange(task)}}
-                    value={this.props.task}
+                    onChangeText={(text) => {this.setState(text)}}
+                    value={this.state.text}
                     placeholder="*eg wash the dog"
                 />  
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress={() => this.props.addNewTask()}
+                    onPress={() => this.addTask(this.state.text)}
                 >
                     <Text style={styles.buttonText}>+</Text>    
                 </TouchableOpacity>               
@@ -53,3 +68,5 @@ const styles = StyleSheet.create({
         color: "white"
     }
 });
+
+export default connect()(InputBar);

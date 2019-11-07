@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { 
     View,
     FlatList, 
-    StyleSheet
+    StyleSheet,
+    Text
 } from "react-native";
 
 import Header from './components/Header';
 import InputBar from './components/InputBar';
-import TaskItem from './components/TaskItem';
+
+import {connect} from 'react-redux';
 
 class TodoApp extends Component {
     render() {
@@ -18,6 +20,9 @@ class TodoApp extends Component {
                     textChange={task => this.setState({ task })} 
                     addNewTask={() => this.addNewTask()}
                 />
+                <Text>
+                    {this.state.tasks}
+                </Text>
                 {/* <FlatList
                 data={this.state.tasks}
                 keyExtractor={(item) => item.id.toString()}
@@ -35,7 +40,6 @@ class TodoApp extends Component {
         );
     }
 }
-export default TodoApp;
 
 const styles = StyleSheet.create({
     container: {
@@ -44,3 +48,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }
 });
+
+mapStateToProps = state => ({
+    tasks: state.task
+});
+
+export default connect(mapStateToProps)(TodoApp);
