@@ -21,6 +21,7 @@ export default class InputBar extends Component {
                     style={styles.input}
                     onChangeText={(task) => {this.props.textChange(task)}}
                     value={this.props.task}
+                    placeholder="*eg wash the dog"
                 />  
                 <TouchableOpacity 
                     style={styles.button}
@@ -35,7 +36,7 @@ export default class InputBar extends Component {
 
 const styles = StyleSheet.create({
     input: {
-        fontSize: 30,
+        fontSize: 25,
         borderColor: "black",
         borderStyle: "solid",
         borderWidth: 2,
