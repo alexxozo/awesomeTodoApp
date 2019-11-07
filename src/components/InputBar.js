@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import {connect} from 'react-redux';
+import {addTask} from '../actions';
 
 import {
     TextInput,
@@ -9,7 +10,6 @@ import {
     TouchableOpacity,
     Text
 } from 'react-native';
-import { black, white } from 'ansi-colors';
 
 class InputBar extends Component {
     constructor() {
@@ -20,12 +20,9 @@ class InputBar extends Component {
         text: ''
     }
 
-    addTask(text) {
-        //reduc store
-        this.props.dispatch({
-            type: 'ADD_TASK',
-            text
-        });
+    newTask(text) {
+        //redux store
+        this.props.dispatch(addTask(text));
         this.setState({text: ''});
     }
 
@@ -34,13 +31,13 @@ class InputBar extends Component {
             <View style={{padding:20, flexDirection:"row"}}>
                 <TextInput 
                     style={styles.input}
-                    onChangeText={(text) => {this.setState(text)}}
+                    onChangeText={(text) => {this.setState({text})}}
                     value={this.state.text}
                     placeholder="*eg wash the dog"
                 />  
                 <TouchableOpacity 
                     style={styles.button}
-                    onPress={() => this.addTask(this.state.text)}
+                    onPress={() => this.newTask(this.state.text)}
                 >
                     <Text style={styles.buttonText}>+</Text>    
                 </TouchableOpacity>               

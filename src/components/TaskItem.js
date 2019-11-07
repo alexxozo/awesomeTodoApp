@@ -7,29 +7,41 @@ import {
     Button
 } from 'react-native';
 
-export default class TaskItem extends Component {
+import {connect} from 'react-redux';
+import {toggleTask, removeTask} from '../actions';
+
+class TaskItem extends Component {
     constructor(props) {
         super(props);
+    }
+
+    toggleTask(id) {
+        //redux store
+        this.props.dispatch(toggleTask(id));
+    }
+
+    removeTask(id) {
+        //redux store
+        this.props.dispatch(removeTask(id));
     }
 
     render() {
         const taskItem = this.props.item;
         
-
         return (
             <TouchableOpacity 
                 style={[styles.taskItem, (taskItem.id == 1) ? {borderTopWidth: 1} : {borderTopWidth: 0}]}
-                // onPress={() => {this.props.toggleTask()}}
+                onPress={() => {this.toggleTask(taskItem.id)}}
             >
                 <Text numberOfLines={1} style={[styles.taskItemText, (taskItem.done) ? styles.taskItemDone : ""]}>
                     {taskItem.text}
                 </Text>
 
-                {/* <Button 
+                <Button 
                     title="Remove"
                     color="black"
-                    onPress={() => { this.props.removeTask() }}
-                /> */}
+                    onPress={() => {this.removeTask(taskItem.id)}}
+                />
             </TouchableOpacity>
         );
     }
@@ -57,3 +69,5 @@ const styles = StyleSheet.create({
        textDecorationLine: "line-through"
    }
 });
+
+export default connect()(TaskItem);
