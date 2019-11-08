@@ -12,35 +12,35 @@ import {connect} from 'react-redux';
 
 const TaskList = ({
     tasks,
-    toggleTodo
-}) => (
-    <View>
-        <FlatList
-            data={tasks}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({item, index}) => {
-                return (
-                    <TaskItem 
-                        item={item}
-                    />
-                )
-            }}
+    loading, 
+    error
+}) => {
+    if (!loading) {
+        return (
+            <FlatList
+                data={tasks}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({item, index}) => {
+                    return (
+                        <TaskItem 
+                            item={item}
+                        />
+                    )
+                }}
             /> 
-        
-    </View>
-    )
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        )
+    } else {
+        return (
+            <Text>Loading Tasks ...</Text>
+        )
     }
-});
+}
 
 const mapStateToProps = state => {
     return {
-        tasks: state.tasks
+        loading: state.loading,
+        tasks: state.tasks ? state.tasks : [],
+        error: state.error
     };
 }
 

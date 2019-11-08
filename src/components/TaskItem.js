@@ -15,9 +15,9 @@ class TaskItem extends Component {
         super(props);
     }
 
-    toggleTask(id) {
+    toggleTask(id, done) {
         //redux store
-        this.props.dispatch(toggleTask(id));
+        this.props.dispatch(toggleTask(id, done));
     }
 
     removeTask(id) {
@@ -31,7 +31,7 @@ class TaskItem extends Component {
         return (
             <TouchableOpacity 
                 style={[styles.taskItem, (taskItem.id == 1) ? {borderTopWidth: 1} : {borderTopWidth: 0}]}
-                onPress={() => {this.toggleTask(taskItem.id)}}
+                onPress={() => {this.toggleTask(taskItem.id, taskItem.done)}}
             >
                 <Text numberOfLines={1} style={[styles.taskItemText, (taskItem.done) ? styles.taskItemDone : ""]}>
                     {taskItem.text}
